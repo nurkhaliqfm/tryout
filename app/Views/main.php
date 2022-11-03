@@ -16,10 +16,10 @@
             <div class="container-navigation">
                 <input type="hidden" id="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
                 <button id="item_prev" class="prev-button">
-                    <div class="button-text">&larr;</div>
+                    <div class="button-text">Prev</div>
                 </button>
                 <button id="item_next" class="next-button">
-                    <div class="button-text">&rarr;</div>
+                    <div class="button-text">Next</div>
                 </button>
                 <button id="item_selesai" disabled style="display: none;" id="item_next" class="next-button">
                     <div class="button-text">Submit</div>

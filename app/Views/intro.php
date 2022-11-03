@@ -22,7 +22,7 @@
             <div class="text-highlight-info">Start Simulation!</div>
             <input type="hidden" id="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
             <button class="intro-go-button" onclick="goBtnHandle()">
-                <div class="button-text-intro">GO &rarr;</div>
+                <div class="button-text-intro">GO</div>
             </button>
         </div>
     </div>
