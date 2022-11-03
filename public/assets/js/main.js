@@ -1,10 +1,49 @@
-const list_element = document.getElementById("question__part"),
-  pagination_element = document.getElementById("pagination"),
-  prev_button = document.getElementById("item_prev"),
+var baseUrl = window.location.origin;
+var timer = 300;
+let current_page = 1;
+let rows = 1;
+
+const prev_button = document.getElementById("item_prev"),
   next_button = document.getElementById("item_next"),
   finish_button = document.getElementById("item_selesai"),
-  notif_button = document.getElementById("notif_btn"),
   question_num_btn = document.getElementById("question__number_side");
+
+const getData = () => {
+  var csrfName = document.getElementById("txt_csrfname").getAttribute("name");
+  var csrfHash = document.getElementById("txt_csrfname").value;
+
+  const data = {};
+  data["key"] = "get_question";
+  data[csrfName] = csrfHash;
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", baseUrl + "/question-get", true);
+  xhttp.onreadystatechange = () => {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      var response = JSON.parse(xhttp.responseText);
+      document.getElementById("txt_csrfname").value = response["value"];
+      document.getElementById("txt_csrfname").name = response["name"];
+
+      let listQuest = response["question"];
+
+      document.querySelector(".loader-container").style.display = "none";
+
+      countdownTimer(timer, getSession);
+      DisplayQuestion(listQuest, rows, current_page);
+      NavBtnControl(current_page, listQuest);
+      PaginationListNumber(listQuest, rows);
+      ButtonPagination(listQuest);
+    }
+  };
+  xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+  xhttp.setRequestHeader("Content-Type", "application/json");
+  xhttp.send(JSON.stringify(data));
+};
+
+function escapeHTML(html) {
+  escape.textContent = html;
+  return escape.innerHTML;
+}
 
 function CreateOption(question_id, id, value, label_option) {
   var radiobox = document.createElement("input");
@@ -18,10 +57,9 @@ function CreateOption(question_id, id, value, label_option) {
   label.htmlFor = id;
   label.className = "form-check-label";
 
-  var descLabel = document.createTextNode(label_option + ". ");
+  var descLabel = document.createTextNode(" " + label_option + ". ");
   var descText = document.createElement("span");
   descText.id = value;
-  // descText.setAttribute("style", "display: inherit;");
 
   label.appendChild(descLabel);
   label.appendChild(descText);
@@ -35,7 +73,7 @@ function CreateOption(question_id, id, value, label_option) {
 }
 
 function SaveAnsware() {
-  var UserQuizStorage = localStorage.getItem(sessionID);
+  var UserQuizStorage = localStorage.getItem(getSession);
   UserQuizStorage = UserQuizStorage ? JSON.parse(UserQuizStorage) : {};
 
   document.querySelectorAll("input.form-check-input").forEach((itemOption) => {
@@ -47,66 +85,35 @@ function SaveAnsware() {
 
       UserQuizStorage[id_soal] = new_data;
 
-      localStorage.setItem(sessionID, JSON.stringify(UserQuizStorage));
+      localStorage.setItem(getSession, JSON.stringify(UserQuizStorage));
     }
   });
 }
 
-function DisplayList(items, rows_per_page, page, csrfName, csrfHash) {
+function DisplayQuestion(items, rows_per_page, page, csrfName, csrfHash) {
   page--;
   let start = rows_per_page * page;
   let end = start + rows_per_page;
   let paginatedItems = items.slice(start, end);
-  var UserQuizStorage = localStorage.getItem(sessionID);
-  UserQuizStorage = UserQuizStorage ? JSON.parse(UserQuizStorage) : {};
 
+  var UserQuizStorage = localStorage.getItem(getSession);
+  UserQuizStorage = UserQuizStorage ? JSON.parse(UserQuizStorage) : {};
   UserQuizStorage[csrfName] = csrfHash;
-  localStorage.setItem(sessionID, JSON.stringify(UserQuizStorage));
+  localStorage.setItem(getSession, JSON.stringify(UserQuizStorage));
 
   for (let i = 0; i < paginatedItems.length; i++) {
     let item = paginatedItems[i];
-    let dataSoal = dataItems.find(
-      ({ id_soal }) => id_soal === item.quiz_question
-    );
-    let qSubject = typeSoal.find(
-      ({ id_main_type_soal }) => id_main_type_soal === item.quiz_subject
-    );
-    let subjectListID = qSubject.list_type_soal_id.split(",");
-    let subjectListName = qSubject.list_type_soal.split(",");
-    let getId = subjectListID.findIndex(
-      (index) => index === item.quiz_sub_subject
-    );
 
     document.getElementById("question__number").innerHTML = page + 1;
-    document.getElementById("question__subject").innerHTML =
-      subjectListName[getId];
-    document.getElementById("question__part").innerHTML = dataSoal.soal;
-
-    if (window.MathJax) {
-      let math1 = document.querySelector("math");
-      if (math1 != null) {
-        let node_soal = document.querySelector("#question__part");
-        MathJax.typesetPromise([node_soal]).then(() => {});
-      }
-    }
-
-    let simulation_subtitle = qSubject.slug.replace("_", " ");
+    document.getElementById("question__part").innerHTML = item.soal;
 
     document
       .getElementById("question__part")
-      .setAttribute("id-soal", dataSoal.id_soal);
-    document.getElementById("simulation__title").innerHTML = navbarTitle;
-    document.getElementById("simulation__subtitle").innerHTML =
-      simulation_subtitle.charAt(0).toUpperCase() +
-      simulation_subtitle.slice(1);
-    if (document.querySelector('p[data-f-id="pbf"]'))
-      document
-        .querySelector('p[data-f-id="pbf"]')
-        .setAttribute("style", "display:none");
+      .setAttribute("id-soal", item.id_soal);
 
     if (document.querySelectorAll("input.form-check-input").length == 0) {
       document
-        .querySelectorAll(".question__answer__part .form-check")
+        .querySelectorAll(".container-option .form-check")
         .forEach((item) => {
           let labelOption = item.getAttribute("option-name");
           CreateOption(
@@ -123,20 +130,10 @@ function DisplayList(items, rows_per_page, page, csrfName, csrfHash) {
       .forEach((itemOption) => {
         document.querySelector(
           'span[id="' + itemOption.value + '"]'
-        ).innerHTML = dataSoal[itemOption.value];
-
-        if (window.MathJax) {
-          let math = document.querySelector("math");
-          if (math != null) {
-            let node = document.querySelector(
-              'span[id="' + itemOption.value + '"]'
-            );
-            MathJax.typesetPromise([node]).then(() => {});
-          }
-        }
+        ).innerHTML = item[itemOption.value];
 
         itemOption.checked = false;
-        if (itemOption.value == UserQuizStorage[dataSoal.id_soal]) {
+        if (itemOption.value == UserQuizStorage[item.id_soal]) {
           itemOption.checked = true;
         }
       });
@@ -153,101 +150,94 @@ function PaginationListNumber(items, row_per_page) {
 
 function BtnNumberPagination(page) {
   let btn__side = document.createElement("div");
-  btn__side.className = "question__number";
+  btn__side.className = "question-sidenum";
   btn__side.setAttribute("id-question", page);
   btn__side.innerHTML = page;
 
   if (current_page == page) {
     btn__side.classList.add("warning");
+    btn__side.classList.add("active");
   }
 
   return btn__side;
 }
 
 function SidebarStatus(current_page) {
+  document.querySelectorAll(".question-sidenum").forEach((el) => {
+    el.classList.remove("active");
+  });
+
   let selectedQuestion = document.querySelector(
-    '.question__number[id-question="' + current_page + '"]'
+    '.question-sidenum[id-question="' + current_page + '"]'
   );
+  selectedQuestion.classList.add("active");
   selectedQuestion.classList.add("warning");
 
   document.querySelectorAll("input.form-check-input").forEach((itemOption) => {
     if (itemOption.checked) {
       selectedQuestion.classList.remove("warning");
-      selectedQuestion.classList.add("active");
+      selectedQuestion.classList.add("done");
     }
   });
 }
 
-function ButtonPagination(items, url, urlRedirect) {
+function ButtonPagination(tryout_quest) {
   SidebarStatus(current_page);
   document.querySelectorAll("input.form-check-input").forEach((itemOption) => {
     itemOption.addEventListener("click", () => {
       SaveAnsware();
       let selectedQuestion = document.querySelector(
-        '.question__number[id-question="' + current_page + '"]'
+        '.question-sidenum[id-question="' + current_page + '"]'
       );
       selectedQuestion.classList.remove("warning");
-      selectedQuestion.classList.add("active");
+      selectedQuestion.classList.add("done");
     });
   });
 
   next_button.addEventListener("click", () => {
     current_page = current_page + 1;
-    DisplayList(items, rows, current_page);
-    NavBtnControl(current_page);
-    SidebarStatus(current_page);
+    DisplayQuestion(tryout_quest, rows, current_page);
+    NavBtnControl(current_page, tryout_quest);
+    SidebarStatus(current_page, tryout_quest);
   });
 
   prev_button.addEventListener("click", () => {
     current_page = current_page - 1;
-    DisplayList(items, rows, current_page);
-    NavBtnControl(current_page);
+    DisplayQuestion(tryout_quest, rows, current_page);
+    SidebarStatus(current_page, tryout_quest);
+    NavBtnControl(current_page, tryout_quest);
   });
 
-  notif_button.addEventListener("click", () => {
-    var UserQuizStorage = localStorage.getItem(sessionID);
-    UserQuizStorage = UserQuizStorage ? JSON.parse(UserQuizStorage) : {};
-
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", url, true);
-    xhttp.onreadystatechange = () => {
-      if (xhttp.readyState == 4 && xhttp.status == 200) {
-        var response = JSON.parse(xhttp.responseText);
-        $(".txt_csrfname").val(response.token);
-        setTimeout(() => {
-          window.location.replace(urlRedirect + "?query=" + response.quiz_id);
-        }, 3000);
-      }
-    };
-    xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-    xhttp.setRequestHeader("Content-Type", "application/json");
-    xhttp.send(JSON.stringify(UserQuizStorage));
+  finish_button.addEventListener("click", () => {
+    calculateResult(tryout_quest);
   });
 
-  document.querySelectorAll(".question__number").forEach((element) => {
+  document.querySelectorAll(".question-sidenum").forEach((element) => {
     element.addEventListener("click", () => {
       current_page = parseInt(element.getAttribute("id-question"));
-      DisplayList(items, rows, current_page);
-      NavBtnControl(current_page);
-      SidebarStatus(current_page);
+      DisplayQuestion(tryout_quest, rows, current_page);
+      NavBtnControl(current_page, tryout_quest);
+      SidebarStatus(current_page, tryout_quest);
     });
   });
 }
 
-function NavBtnControl(current_page) {
+function NavBtnControl(current_page, tryout_quest) {
   if (current_page == 1) {
-    prev_button.setAttribute("disabled", "");
+    prev_button.disabled = true;
   } else {
     prev_button.removeAttribute("disabled", "");
   }
 
-  if (current_page == dataQuiz.length) {
+  if (current_page == tryout_quest.length) {
     next_button.setAttribute("disabled", "");
     next_button.setAttribute("style", "display:none");
     finish_button.setAttribute("style", "display:");
+    finish_button.disabled = false;
   } else {
     next_button.setAttribute("style", "display:");
-    finish_button.setAttribute("style", "display:none");
     next_button.removeAttribute("disabled", "");
+    finish_button.setAttribute("style", "display:none");
+    finish_button.disabled = true;
   }
 }

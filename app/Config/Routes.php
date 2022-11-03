@@ -37,7 +37,9 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/online-simulation', 'Home::online_simulation');
-$routes->post('/session-create', 'Home::createSession');
+$routes->post('/session-create', 'Home::xhttp_session');
+$routes->post('/session-reset', 'Home::xhttp_session');
+$routes->post('/question-get', 'Home::xhttp_questdata');
 $routes->get('/simulation-result', 'Home::simulation_result');
 
 /*

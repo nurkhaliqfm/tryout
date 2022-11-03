@@ -23,17 +23,53 @@ class Home extends BaseController
         return view('result');
     }
 
-    public function createSession()
+    public function xhttp_session()
     {
-        $session_id = Uuid::uuid4();
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
 
-        session()->set([
-            'session_id' => $session_id,
-        ]);
+        if ($data['key'] == 'make_session') {
+            $session_id = Uuid::uuid4();
+            session()->set([
+                'session_id' => $session_id,
+            ]);
 
-        $response = array();
-        $response['session_id'] = $session_id;
-        $response['status'] = "Success";
+            $response = array();
+            $response['session_id'] = $session_id;
+            $response['status'] = "Success";
+        } else if ($data['key'] == 'reset_session') {
+
+            session()->destroy();
+
+            $response = array();
+            $response['status'] = "Success";
+        } else {
+            $response = array();
+            $response['status'] = "Failed";
+        }
+
+        $response['name'] = csrf_token();
+        $response['value'] = csrf_hash();
+
+        return $this->response->setJSON($response);
+    }
+
+    public function xhttp_questdata()
+    {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+
+        if ($data['key'] == 'get_question') {
+            $getSoal = $this->soalModel->orderBy('id')->findAll();
+
+            $response = array();
+            $response['question'] = $getSoal;
+            $response['status'] = "Success";
+        } else {
+            $response = array();
+            $response['status'] = "Failed";
+        }
+
         $response['name'] = csrf_token();
         $response['value'] = csrf_hash();
 

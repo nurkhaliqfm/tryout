@@ -2,11 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Models\SoalModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Model;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -45,6 +47,7 @@ abstract class BaseController extends Controller
         // Do Not Edit This Line
         parent::initController($request, $response, $logger);
 
+        $this->soalModel = new \App\Models\SoalModel();
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();

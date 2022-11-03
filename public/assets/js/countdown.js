@@ -71,3 +71,7 @@ class Timer {
           `;
   }
 }
+
+function countdownTimer(timer, session_id) {
+  new Timer(document.querySelector(".timer__countdown"), timer, session_id);
+}

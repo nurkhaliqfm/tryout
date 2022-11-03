@@ -4,34 +4,38 @@
 <div class="wrapper simulasi-wrapper">
     <div class="content-simulasi">
         <div class="container-body">
-            <div class="container-no_soal">SOAL NOMOR 1</div>
-            <div class="container-soal">Siapakah Nama Anda ?</div>
+            <div class="container-no_soal">SOAL NOMOR <span id="question__number"></div>
+            <div id="question__part" class="container-soal"></div>
             <div class="container-option">
-                <div>Option A</div>
-                <div>Option B</div>
-                <div>Option C</div>
-                <div>Option D</div>
-                <div>Option E</div>
+                <div class="form-check" id="option_1" option-name='A'></div>
+                <div class="form-check" id="option_2" option-name='B'></div>
+                <div class="form-check" id="option_3" option-name='C'></div>
+                <div class="form-check" id="option_4" option-name='D'></div>
+                <div class="form-check" id="option_5" option-name='E'></div>
             </div>
             <div class="container-navigation">
-                <button class="prev-button">
+                <input type="hidden" id="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
+                <button id="item_prev" class="prev-button">
                     <div class="button-text">&larr;</div>
                 </button>
-                <button class="next-button">
+                <button id="item_next" class="next-button">
                     <div class="button-text">&rarr;</div>
+                </button>
+                <button id="item_selesai" disabled style="display: none;" id="item_next" class="next-button">
+                    <div class="button-text">Submit</div>
                 </button>
             </div>
         </div>
         <?= $this->include('layout/sidebar'); ?>
     </div>
 </div>
-<script src="<?= base_url('assets/js/countdown.js') ?>"></script>
+<script src="<?= base_url('assets/js/countdown.js?v=') . time()  ?>"></script>
+<script src="<?= base_url('assets/js/main.js?v=') . time()  ?>"></script>
+<script src="<?= base_url('assets/js/calculate-result.js?v=') . time()  ?>"></script>
 <script>
-    const timer = 300;
     var getSession = localStorage.getItem('session_id');
     getSession = getSession ? JSON.parse(getSession) : {};
-    new Timer(
-        document.querySelector(".timer__countdown"), timer, getSession
-    );
+
+    getData();
 </script>
 <?= $this->endSection(); ?>

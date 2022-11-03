@@ -17,21 +17,27 @@
         <div class="content-intro">
             <div class="text-info">Your Score!</div>
             <div class="result-container">
-                <span class="score">100</span>
+                <span class="score"></span>
             </div>
+            <input type="hidden" id="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
             <button class="intro-go-button" onclick="restartBtnHandle()">
                 <div class="button-text-intro">Restart</div>
             </button>
         </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="<?= base_url('assets/js/jquery.min.js') ?>"></script>
+    <!-- PreventAccess -->
+    <script src="<?= base_url('assets/js/prevent-access.js') ?>"></script>
+    <!-- Result Script -->
+    <script src="<?= base_url('assets/js/result.js?v=') . time()  ?>"></script>
     <script>
-        const restartBtnHandle = () => {
-            var baseUrl = window.location.origin;
-            window.location.replace(baseUrl)
-        }
+        var getSession = localStorage.getItem('session_id');
+        getSession = getSession ? JSON.parse(getSession) : {};
+
+        var resultSimulation = localStorage.getItem(getSession);
+        resultSimulation = resultSimulation ? JSON.parse(resultSimulation) : {};
+        console.log(resultSimulation);
+        document.querySelector('.score').innerHTML = resultSimulation;
     </script>
 </body>
 

@@ -13,11 +13,18 @@
 </head>
 
 <body>
+    <div class="loader-container">
+        <div class="loader"></div>
+    </div>
     <?= $this->include('layout/navbar'); ?>
     <?= $this->renderSection('content'); ?>
 
     <!-- jQuery -->
     <script src="<?= base_url('assets/js/jquery.min.js') ?>"></script>
+    <!-- MD5 Script -->
+    <script src="<?= base_url('assets/js/md5.js') ?>"></script>
+    <!-- PreventAccess -->
+    <script src="<?= base_url('assets/js/prevent-access.js') ?>"></script>
 </body>
 
 </html>
