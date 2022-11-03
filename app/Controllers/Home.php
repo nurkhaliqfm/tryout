@@ -19,7 +19,7 @@ class Home extends BaseController
 
     public function simulation_result()
     {
-        if (!session()->get('session_id')) return redirect()->to(base_url('/'));
+        session()->destroy();
         return view('result');
     }
 

@@ -1,1 +1,0 @@
-<div id="question__number_side" class="container-sidebar"></div>

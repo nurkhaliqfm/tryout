@@ -1,5 +1,5 @@
 var baseUrl = window.location.origin;
-var timer = 300;
+var timer = 5;
 let current_page = 1;
 let rows = 1;
 
@@ -39,11 +39,6 @@ const getData = () => {
   xhttp.setRequestHeader("Content-Type", "application/json");
   xhttp.send(JSON.stringify(data));
 };
-
-function escapeHTML(html) {
-  escape.textContent = html;
-  return escape.innerHTML;
-}
 
 function CreateOption(question_id, id, value, label_option) {
   var radiobox = document.createElement("input");
@@ -209,7 +204,8 @@ function ButtonPagination(tryout_quest) {
   });
 
   finish_button.addEventListener("click", () => {
-    calculateResult(tryout_quest);
+    var baseUrl = window.location.origin;
+    window.location.replace(baseUrl + "/simulation-result");
   });
 
   document.querySelectorAll(".question-sidenum").forEach((element) => {

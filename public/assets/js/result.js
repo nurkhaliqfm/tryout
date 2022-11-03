@@ -26,3 +26,31 @@ const XhttpSession = () => {
 const restartBtnHandle = () => {
   XhttpSession();
 };
+
+const getData = (simulationResultData) => {
+  var csrfName = document.getElementById("txt_csrfname").getAttribute("name");
+  var csrfHash = document.getElementById("txt_csrfname").value;
+
+  const data = {};
+  data["key"] = "get_question";
+  data[csrfName] = csrfHash;
+
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", baseUrl + "/question-get", true);
+  xhttp.onreadystatechange = () => {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      var response = JSON.parse(xhttp.responseText);
+      document.getElementById("txt_csrfname").value = response["value"];
+      document.getElementById("txt_csrfname").name = response["name"];
+
+      let listQuest = response["question"];
+
+      document.querySelector(".loader-container").style.display = "none";
+
+      calculateResult(listQuest, simulationResultData);
+    }
+  };
+  xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+  xhttp.setRequestHeader("Content-Type", "application/json");
+  xhttp.send(JSON.stringify(data));
+};

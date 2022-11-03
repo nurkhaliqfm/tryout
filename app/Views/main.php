@@ -26,12 +26,12 @@
                 </button>
             </div>
         </div>
-        <?= $this->include('layout/sidebar'); ?>
+        <div id="question__number_side" class="container-sidebar"></div>
     </div>
 </div>
+
 <script src="<?= base_url('assets/js/countdown.js?v=') . time()  ?>"></script>
 <script src="<?= base_url('assets/js/main.js?v=') . time()  ?>"></script>
-<script src="<?= base_url('assets/js/calculate-result.js?v=') . time()  ?>"></script>
 <script>
     var getSession = localStorage.getItem('session_id');
     getSession = getSession ? JSON.parse(getSession) : {};
