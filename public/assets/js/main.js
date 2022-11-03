@@ -1,5 +1,5 @@
 var baseUrl = window.location.origin;
-var timer = 5;
+var timer = 300;
 let current_page = 1;
 let rows = 1;
 
