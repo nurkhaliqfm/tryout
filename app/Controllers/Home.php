@@ -19,7 +19,6 @@ class Home extends BaseController
 
     public function simulation_result()
     {
-        session()->destroy();
         return view('result');
     }
 
@@ -65,6 +64,68 @@ class Home extends BaseController
             $response = array();
             $response['question'] = $getSoal;
             $response['status'] = "Success";
+        } else {
+            $response = array();
+            $response['status'] = "Failed";
+        }
+
+        $response['name'] = csrf_token();
+        $response['value'] = csrf_hash();
+
+        return $this->response->setJSON($response);
+    }
+
+    public function xhttp_resultdata()
+    {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+
+        if ($data['key'] == 'save_result') {
+            $dataResult = $this->resultModel->where(['id_user' => session()->get('user_id')])->first();
+            if (!$dataResult) {
+                $this->resultModel->save([
+                    'id_user' => session()->get('user_id'),
+                    'result' => $data['result'],
+                ]);
+                $response = array();
+                $response['status'] = "Success";
+            } else {
+                $response = array();
+                $response['status'] = "Success";
+            }
+            session()->destroy();
+        } else {
+            $response = array();
+            $response['status'] = "failed";
+        }
+
+        $response['name'] = csrf_token();
+        $response['value'] = csrf_hash();
+
+        return $this->response->setJSON($response);
+    }
+
+    public function login_simulation()
+    {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+
+        if ($data['key'] == 'login_simulation') {
+            $response = array();
+            $daftrPeserta = $this->formRegistModel->where(['leader_email' => $data['email']])->first();
+            if ($daftrPeserta) {
+                if ($data['password'] == $daftrPeserta['leader_phone']) {
+                    $response['status'] = "Success";
+                    session()->set([
+                        'user_id' => $daftrPeserta['user_id'],
+                        'email' => $daftrPeserta['leader_email'],
+                    ]);
+                } else {
+                    $response['status'] = "Failed";
+                };
+            } else {
+                $response['status'] = "Failed";
+            }
         } else {
             $response = array();
             $response['status'] = "Failed";

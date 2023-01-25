@@ -1,11 +1,12 @@
 var baseUrl = window.location.origin;
-var timer = 300;
+var timer = 7200;
 let current_page = 1;
 let rows = 1;
 
 const prev_button = document.getElementById("item_prev"),
   next_button = document.getElementById("item_next"),
-  finish_button = document.getElementById("item_selesai"),
+  finish_conf_button = document.getElementById("item_selesai"),
+  finish_button = document.getElementById("finish_button"),
   question_num_btn = document.getElementById("question__number_side");
 
 const getData = () => {
@@ -40,7 +41,7 @@ const getData = () => {
   xhttp.send(JSON.stringify(data));
 };
 
-function CreateOption(question_id, id, value, label_option) {
+function CreateOption(question_id, id, value) {
   var radiobox = document.createElement("input");
   radiobox.type = "radio";
   radiobox.id = id;
@@ -52,19 +53,16 @@ function CreateOption(question_id, id, value, label_option) {
   label.htmlFor = id;
   label.className = "form-check-label";
 
-  var descLabel = document.createTextNode(" " + label_option + ". ");
+  var descLabel = document.createTextNode(" ");
   var descText = document.createElement("span");
   descText.id = value;
 
   label.appendChild(descLabel);
   label.appendChild(descText);
 
-  var newline = document.createElement("br");
-
   var container = document.getElementById(question_id);
   container.appendChild(radiobox);
   container.appendChild(label);
-  container.appendChild(newline);
 }
 
 function SaveAnsware() {
@@ -114,8 +112,7 @@ function DisplayQuestion(items, rows_per_page, page, csrfName, csrfHash) {
           CreateOption(
             item.id,
             "option" + labelOption,
-            "option_" + labelOption.toLowerCase(),
-            labelOption
+            "option_" + labelOption.toLowerCase()
           );
         });
     }
@@ -125,7 +122,15 @@ function DisplayQuestion(items, rows_per_page, page, csrfName, csrfHash) {
       .forEach((itemOption) => {
         document.querySelector(
           'span[id="' + itemOption.value + '"]'
-        ).innerHTML = item[itemOption.value];
+        ).innerHTML = item[itemOption.value]
+          .replace(
+            '<br style="margin: 0px; padding: 0px; box-sizing: border-box;" fr-original-style="">',
+            ""
+          )
+          .replace(
+            '<br fr-original-style="" style="margin: 0px; padding: 0px; box-sizing: border-box;">',
+            ""
+          );
 
         itemOption.checked = false;
         if (itemOption.value == UserQuizStorage[item.id_soal]) {
@@ -228,12 +233,12 @@ function NavBtnControl(current_page, tryout_quest) {
   if (current_page == tryout_quest.length) {
     next_button.setAttribute("disabled", "");
     next_button.setAttribute("style", "display:none");
-    finish_button.setAttribute("style", "display:");
-    finish_button.disabled = false;
+    finish_conf_button.setAttribute("style", "display:");
+    finish_conf_button.disabled = false;
   } else {
     next_button.setAttribute("style", "display:");
     next_button.removeAttribute("disabled", "");
-    finish_button.setAttribute("style", "display:none");
-    finish_button.disabled = true;
+    finish_conf_button.setAttribute("style", "display:none");
+    finish_conf_button.disabled = true;
   }
 }

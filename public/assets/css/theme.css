@@ -3,6 +3,7 @@
 :root {
   --main-color: #ffffff;
   --color-1: #edf0f5;
+  --color-3: #f1f4f8;
   --color-2: #000000;
   --color-warning: #ff4848;
   --color-active: #48ff7f;
@@ -26,7 +27,118 @@ body {
 html,
 body {
   height: 100%;
+  overflow-y: scroll;
 }
+
+.modal-button {
+  border: unset;
+  border-radius: 5px;
+}
+
+.toast {
+  position: absolute;
+  top: 25px;
+  right: 30px;
+  border-radius: 12px;
+  background: #fff;
+  padding: 20px 35px 20px 25px;
+  box-shadow: 0 6px 20px -5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transform: translateX(calc(100% + 30px));
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35);
+}
+
+.toast.active {
+  transform: translateX(0%);
+}
+
+.toast .toast-content {
+  display: flex;
+  align-items: center;
+}
+
+.toast-content .check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  min-width: 35px;
+  background-color: #4070f4;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 50%;
+}
+
+.toast-content .times {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 35px;
+  min-width: 35px;
+  background-color: #f44040;
+  color: #fff;
+  font-size: 20px;
+  border-radius: 50%;
+}
+
+.toast-content .message {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+}
+
+.message .text {
+  font-size: 16px;
+  font-weight: 400;
+  color: #666666;
+}
+
+.message .text.text-1 {
+  font-weight: 600;
+  color: #333;
+}
+
+.toast .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  padding: 5px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+.toast .close:hover {
+  opacity: 1;
+}
+
+.toast .progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+}
+
+.toast .progress:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #4070f4;
+}
+
+.progress.active:before {
+  animation: progress 5s linear forwards;
+}
+
+@keyframes progress {
+  100% {
+    right: 100%;
+  }
+}
+
 .loader-container {
   position: absolute;
   top: 0;
@@ -74,6 +186,16 @@ body {
   background-color: var(--main-color);
 }
 
+.form-check {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  margin: 10px 0;
+  background-color: var(--color-3);
+  padding: 10px 20px 10px 40px;
+  border-radius: 10px;
+}
+
 /* INTRO */
 .wrapper.intro-wraper {
   background-color: var(--color-1);
@@ -92,7 +214,7 @@ body {
 }
 
 .text-info {
-  color: var(--font-1);
+  color: var(--font-1) !important;
   font-weight: 400;
   font-size: 0.9rem;
 }
@@ -106,7 +228,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 150px;
-  height: 150px;
+  height: 140px;
   border-radius: 100%;
   border: 9px solid var(--color-1);
   margin: 50px auto;
@@ -139,7 +261,7 @@ body {
 }
 
 .button-text-intro {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: 800;
   background-color: var(--font-2);
   color: transparent;
@@ -160,8 +282,7 @@ body {
   background-clip: text;
 }
 
-.intro-go-button:active,
-.intro-go-button:focus {
+.intro-go-button:active {
   background-color: var(--color-1);
   box-shadow: -10px -10px 15px rgba(255, 255, 255, 0.5),
     10px 10px 15px rgba(0, 0, 0, 0.12),
@@ -180,6 +301,7 @@ body {
   justify-content: space-between;
   background-color: var(--color-1);
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
 }
 
 .item-navbar,
@@ -276,6 +398,8 @@ body {
   box-shadow: -5px -5px 3px rgba(255, 255, 255, 0.5),
     5px 5px 3px rgba(0, 0, 0, 0.12);
   border-radius: 10px;
+  max-height: 300px;
+  overflow-y: scroll;
 }
 
 .question-sidenum {
@@ -295,7 +419,7 @@ body {
 .question-sidenum.active {
   width: 40px;
   height: 40px;
-  font-weight: 400;
+  /* font-weight: 400; */
   color: var(--font-2);
   border-radius: 5px;
   background-color: var(--main-color);
@@ -307,7 +431,7 @@ body {
 .question-sidenum.warning {
   width: 40px;
   height: 40px;
-  font-weight: 400;
+  /* font-weight: 400; */
   /* color: var(--main-color); */
   color: var(--color-warning);
   border-radius: 5px;
@@ -320,7 +444,7 @@ body {
 .question-sidenum.done {
   width: 40px;
   height: 40px;
-  font-weight: 400;
+  /* font-weight: 400; */
   /* color: var(--main-color); */
   color: var(--color-active);
   border-radius: 5px;
@@ -376,7 +500,7 @@ body {
 
   .img-container {
     width: 250px;
-    height: 250px;
+    height: 240px;
     margin: 80px auto;
   }
 
@@ -386,7 +510,7 @@ body {
   }
 
   .button-text-intro {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 800;
   }
 
@@ -430,8 +554,9 @@ body {
   }
 
   .container-sidebar {
-    width: 120px;
-    max-height: 200px;
+    width: 250px;
+    max-height: 500px;
+    overflow-y: scroll;
   }
 
   .container-no_soal {

@@ -48,6 +48,8 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         $this->soalModel = new \App\Models\SoalModel();
+        $this->formRegistModel = new \App\Models\FormRegistModel();
+        $this->resultModel = new \App\Models\ResultModel();
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();

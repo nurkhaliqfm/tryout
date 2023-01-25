@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sistem Tryout</title>
+    <title>Preliminary Test Constrain 2023</title>
 
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url('assets/css/theme.css?v=') . time() ?>">
@@ -18,13 +18,10 @@
     </div>
     <div class="wrapper intro-wraper">
         <div class="content-intro">
-            <div class="text-info">Your Score!</div>
-            <div class="result-container">
-                <span class="score"></span>
-            </div>
+            <div class="text-info" style="margin-bottom: 40px;">Thanks! I hope your prelimmiinary test results are good.</div>
             <input type="hidden" id="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
             <button class="intro-go-button" onclick="restartBtnHandle()">
-                <div class="button-text-intro">Restart</div>
+                <div class="button-text-intro">HOME</div>
             </button>
         </div>
     </div>

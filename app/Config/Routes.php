@@ -41,6 +41,8 @@ $routes->post('/session-create', 'Home::xhttp_session');
 $routes->post('/session-reset', 'Home::xhttp_session');
 $routes->post('/question-get', 'Home::xhttp_questdata');
 $routes->get('/simulation-result', 'Home::simulation_result');
+$routes->post('/login-simulation', 'Home::login_simulation');
+$routes->post('/save-result', 'Home::xhttp_resultdata');
 
 /*
  * --------------------------------------------------------------------
