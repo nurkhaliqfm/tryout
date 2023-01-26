@@ -28,14 +28,19 @@ class Home extends BaseController
         $data = json_decode($json, true);
 
         if ($data['key'] == 'make_session') {
-            $session_id = Uuid::uuid4();
-            session()->set([
-                'session_id' => $session_id,
-            ]);
-
+            $cekUser = $this->formRegistModel->where(['user_id' => session()->get('user_id')])->first();
             $response = array();
-            $response['session_id'] = $session_id;
-            $response['status'] = "Success";
+            if ($cekUser) {
+                $session_id = Uuid::uuid4();
+                session()->set([
+                    'session_id' => $session_id,
+                ]);
+
+                $response['session_id'] = $session_id;
+                $response['status'] = "Success";
+            } else {
+                $response['status'] = "Failed";
+            }
         } else if ($data['key'] == 'reset_session') {
 
             session()->destroy();
@@ -114,15 +119,21 @@ class Home extends BaseController
             $response = array();
             $daftrPeserta = $this->formRegistModel->where(['leader_email' => $data['email']])->first();
             if ($daftrPeserta) {
-                if ($data['password'] == $daftrPeserta['leader_phone']) {
-                    $response['status'] = "Success";
-                    session()->set([
-                        'user_id' => $daftrPeserta['user_id'],
-                        'email' => $daftrPeserta['leader_email'],
-                    ]);
+                $resultData = $this->resultModel->where(['id_user' => $daftrPeserta['user_id']])->first();
+                if (!$resultData) {
+                    if ($data['password'] == $daftrPeserta['leader_phone']) {
+                        $response['status'] = "Success";
+                        session()->set([
+                            'user_id' => $daftrPeserta['user_id'],
+                            'email' => $daftrPeserta['leader_email'],
+                        ]);
+                    } else {
+                        $response['status'] = "Failed";
+                    };
                 } else {
                     $response['status'] = "Failed";
-                };
+                    $response['limited'] = true;
+                }
             } else {
                 $response['status'] = "Failed";
             }

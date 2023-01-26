@@ -22,8 +22,8 @@
             <div class="toast-content">
                 <i class="fas fa-solid fa-times times"></i>
                 <div class="message">
-                    <span class="text text-1">Login Failed</span>
-                    <span class="text text-2">Email atau Password Salah</span>
+                    <span class="text text-1"></span>
+                    <span class="text text-2"></span>
                 </div>
             </div>
             <i class="fa-solid fa-xmark close"></i>

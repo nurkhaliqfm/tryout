@@ -16,9 +16,39 @@ const XhttpSession = () => {
       document.getElementById("txt_csrfname").value = response["value"];
       document.getElementById("txt_csrfname").name = response["name"];
 
-      let session = response["session_id"];
-      localStorage.setItem("session_id", JSON.stringify(session));
-      window.location.replace(baseUrl + "/online-simulation");
+      if (response["status"] === "Success") {
+        let session = response["session_id"];
+        localStorage.setItem("session_id", JSON.stringify(session));
+        window.location.replace(baseUrl + "/online-simulation");
+      } else {
+        $("#modelLoginPeserta").modal("hide");
+        $("#modelInfoPreliminaryTest").modal("hide");
+        const toast = document.querySelector(".toast");
+        (closeIcon = document.querySelector(".close")),
+          (progress = document.querySelector(".progress"));
+        let timer1, timer2;
+        toast.classList.add("active");
+        progress.classList.add("active");
+
+        document.querySelector(".toast .text-1").innerHTML = "Limited Access";
+        document.querySelector(".toast .text-2").innerHTML =
+          "Can't Join Preliminary Test";
+
+        timer1 = setTimeout(() => {
+          toast.classList.remove("active");
+        }, 5000);
+        timer2 = setTimeout(() => {
+          progress.classList.remove("active");
+        }, 5300);
+        closeIcon.addEventListener("click", () => {
+          toast.classList.remove("active");
+          setTimeout(() => {
+            progress.classList.remove("active");
+          }, 300);
+          clearTimeout(timer1);
+          clearTimeout(timer2);
+        });
+      }
     }
   };
   xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
@@ -53,6 +83,16 @@ const XhttpLoginSimulation = () => {
         let timer1, timer2;
         toast.classList.add("active");
         progress.classList.add("active");
+
+        if (response["limited"]) {
+          document.querySelector(".toast .text-1").innerHTML = "Limited Access";
+          document.querySelector(".toast .text-2").innerHTML =
+            "Can't Join Preliminary Test";
+        } else {
+          document.querySelector(".toast .text-1").innerHTML = "Login Failed";
+          document.querySelector(".toast .text-2").innerHTML =
+            "Email atau Password Salah";
+        }
         timer1 = setTimeout(() => {
           toast.classList.remove("active");
         }, 5000);
