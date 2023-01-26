@@ -9,7 +9,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url('assets/css/theme.css?v=') . time() ?>">
     <!-- Fav Icon -->
-    <link rel="icon" type="image/x-icon" href="">
+    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/logo.png?v=') . time() ?>">
 </head>
 
 <body>
@@ -18,7 +18,10 @@
     </div>
     <div class="wrapper intro-wraper">
         <div class="content-intro">
-            <div class="text-info" style="margin-bottom: 40px;">Thanks! I hope your prelimmiinary test results are good.</div>
+            <div class="text-info" style="margin-bottom: 20px;">Thanks! I hope your prelimmiinary test results are good.</div>
+            <div class="result-container">
+                <span class="score"></span>
+            </div>
             <input type="hidden" id="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
             <button class="intro-go-button" onclick="restartBtnHandle()">
                 <div class="button-text-intro">HOME</div>

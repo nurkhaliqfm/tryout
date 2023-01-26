@@ -13,26 +13,32 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url('assets/css/theme.css?v=') . time() ?>">
     <!-- Fav Icon -->
-    <link rel="icon" type="image/x-icon" href="">
+    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/logo.png?v=') . time() ?>">
 </head>
 
 <body>
-    <div class="toast">
-        <div class="toast-content">
-            <i class="fas fa-solid fa-times times"></i>
-            <div class="message">
-                <span class="text text-1">Login Failed</span>
-                <span class="text text-2">Email atau Password Salah</span>
-            </div>
-        </div>
-        <i class="fa-solid fa-xmark close"></i>
-        <div class="progress"></div>
-    </div>
     <div class="wrapper intro-wraper">
+        <div class="toast">
+            <div class="toast-content">
+                <i class="fas fa-solid fa-times times"></i>
+                <div class="message">
+                    <span class="text text-1">Login Failed</span>
+                    <span class="text text-2">Email atau Password Salah</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close"></i>
+            <div class="progress"></div>
+        </div>
         <div class="content-intro">
             <div class="text-info">Innovation for Sustainability of Manufacturing Industry to Accelerate National Economic Recovery</div>
             <div class="img-container">
                 <img class="logo-intro" src="<?= base_url('assets/img/intro-logo.svg') ?>" alt="Logo" />
+            </div>
+            <div class="event-img">
+                <img class="logo-event" src="<?= base_url('assets/img/UNHAS.png') ?>" alt="Logo" />
+                <img class="logo-event" src="<?= base_url('assets/img/OKFT.png') ?>" alt="Logo" />
+                <img class="logo-event" src="<?= base_url('assets/img/HMTI.png') ?>" alt="Logo" />
+                <img class="logo-event" src="<?= base_url('assets/img/CONSTRAIN.png') ?>" alt="Logo" />
             </div>
             <div class="text-highlight-info">CONSTRAIN 2023 Preliminary Test!</div>
             <input type="hidden" id="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
@@ -84,7 +90,7 @@
                 <div class="modal-header format-logo">
                     <h5 class="modal-title">Preliminary Test Information</h5>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body" style="font-weight: 400;">
                     <ul>
                         <li>Preliminary test hanya dapat dikerjakan 1x. Jadi pastikan jaringan anda stabil saat mengerjakan test</li>
                         <li>Preliminary test terdiri dari 100 Soal yang dikerjakan selama 120 menit.</li>

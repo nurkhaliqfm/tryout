@@ -13,7 +13,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url('assets/css/theme.css?v=') . time() ?>">
     <!-- Fav Icon -->
-    <link rel="icon" type="image/x-icon" href="">
+    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/logo.png?v=') . time() ?>">
 </head>
 
 <body>

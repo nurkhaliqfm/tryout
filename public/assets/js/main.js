@@ -28,6 +28,7 @@ const getData = () => {
       let listQuest = response["question"];
 
       document.querySelector(".loader-container").style.display = "none";
+      document.querySelector(".item-timer").style.display = "block";
 
       countdownTimer(timer, getSession);
       DisplayQuestion(listQuest, rows, current_page);

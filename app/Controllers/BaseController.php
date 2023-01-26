@@ -42,6 +42,10 @@ abstract class BaseController extends Controller
     /**
      * Constructor.
      */
+    protected $soalModel;
+    protected $formRegistModel;
+    protected $resultModel;
+
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         // Do Not Edit This Line

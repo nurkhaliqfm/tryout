@@ -65,6 +65,7 @@ class Timer {
 
   static getHTML() {
     return `
+              <span><i class="fa-solid fa-clock"></i></span>
               <span class="timer__countdown__minute">00</span>
               <span>:</span>
               <span class="timer__countdown__second">00</span>

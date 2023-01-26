@@ -2,6 +2,13 @@
 
 <?= $this->section('content'); ?>
 <div class="wrapper simulasi-wrapper">
+    <div class="item-timer timer__countdown">
+        <div class="timer">
+            <span>00</span>
+            <span> : </span>
+            <span>00</span>
+        </div>
+    </div>
     <div class="content-simulasi">
         <div class="container-body">
             <div class="container-no_soal">SOAL NOMOR <span id="question__number"></div>
@@ -35,7 +42,7 @@
             <div class="modal-header format-logo">
                 <h5 class="modal-title">Warning !!!</h5>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="font-weight: 400;">
                 Are you sure you want to finish the preliminary test.
             </div>
             <div class="modal-footer">
