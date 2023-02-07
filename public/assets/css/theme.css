@@ -471,9 +471,11 @@ body {
 .question-sidenum.warning {
   width: 40px;
   height: 40px;
-  color: var(--color-warning);
+  /* color: var(--color-warning); */
+  color: var(--main-color);
   border-radius: 5px;
-  background-color: var(--main-color);
+  /* background-color: var(--main-color); */
+  background-color: var(--color-warning);
   text-align: center;
   line-height: 2.4;
 }
@@ -481,9 +483,11 @@ body {
 .question-sidenum.done {
   width: 40px;
   height: 40px;
-  color: var(--color-active);
+  /* color: var(--color-active); */
+  color: var(--main-color);
   border-radius: 5px;
-  background-color: var(--main-color);
+  /* background-color: var(--main-color); */
+  background-color: var(--color-active);
   text-align: center;
   line-height: 2.4;
 }

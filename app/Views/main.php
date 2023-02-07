@@ -62,6 +62,34 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState == "hidden") {
+            var csrfName = document.getElementById("txt_csrfname").getAttribute("name");
+            var csrfHash = document.getElementById("txt_csrfname").value;
+
+            const data = {};
+            data["key"] = "save_result";
+            data[csrfName] = csrfHash;
+            data["result"] = '0';
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", baseUrl + "/save-result", true);
+            xhttp.onreadystatechange = () => {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    var response = JSON.parse(xhttp.responseText);
+                    document.getElementById("txt_csrfname").value = response["value"];
+                    document.getElementById("txt_csrfname").name = response["name"];
+                    window.location.replace(baseUrl + "/simulation-result");
+
+                }
+            };
+            xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(data));
+        };
+    })
+</script>
 
 <script src="<?= base_url('assets/js/countdown.js?v=') . time()  ?>"></script>
 <script src="<?= base_url('assets/js/main.js?v=') . time()  ?>"></script>
