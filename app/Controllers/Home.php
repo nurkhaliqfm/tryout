@@ -137,6 +137,38 @@ class Home extends BaseController
             } else {
                 $response['status'] = "Failed";
             }
+        } else if ($data['key'] == 'simulation_result') {
+            $response = array();
+            $daftrPeserta = $this->formRegistModel->where(['leader_email' => $data['email']])->first();
+            $pesertaCount = $this->resultModel->CountAllResults() - 1;
+            $allResultData = $this->resultModel->orderBy('result', 'DESC')->findAll();
+
+            if ($daftrPeserta) {
+                if ($allResultData) {
+                    $resultData = $this->resultModel->where(['id_user' => $daftrPeserta['user_id']])->first();
+                    if ($resultData) {
+                        $cekResult = array_search($resultData['id_user'], array_column($allResultData, 'id_user'));
+                        if ($data['password'] == $daftrPeserta['leader_phone']) {
+                            $response['status'] = "Success";
+                            if ($cekResult < $pesertaCount) {
+                                $response['test_result'] = "success";
+                            } else {
+                                $response['test_result'] = "failed";
+                            }
+                        } else {
+                            $response['status'] = "Failed";
+                        };
+                    } else {
+                        $response['status'] = "Failed";
+                        $response['no_data'] = true;
+                    }
+                } else {
+                    $response['status'] = "Failed";
+                    $response['no_data'] = true;
+                }
+            } else {
+                $response['status'] = "Failed";
+            }
         } else {
             $response = array();
             $response['status'] = "Failed";

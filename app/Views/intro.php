@@ -43,7 +43,7 @@
             <div class="text-highlight-info">CONSTRAIN 2023 Preliminary Test!</div>
             <input type="hidden" id="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
             <button class="intro-go-button" type="button" data-bs-toggle="modal" data-bs-target="#modelLoginPeserta">
-                <div class="button-text-intro">LOGIN</div>
+                <div class="button-text-intro">RESULT</div>
             </button>
         </div>
     </div>
@@ -84,7 +84,21 @@
         </div>
     </div>
 
-    <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modelInfoPreliminaryTest" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modeResultPreliminaryTest" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header format-logo">
+                    <h5 class="modal-title">Preliminary Test Result</h5>
+                </div>
+                <div id="modal-body__result" class="modal-body" style="font-weight: 400;">
+                    <h2 class="result-title text-center"></h2>
+                    <h6 class="result-desc text-center"></h6>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modeResultPreliminaryTest" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header format-logo">
@@ -122,7 +136,7 @@
     <!-- Bootstrap 5 -->
     <script src="<?= base_url('assets/js/bootstrap.bundle.min.js') ?>"></script>
     <!-- My Script -->
-    <script src="<?= base_url('assets/js/intro.js?v=') . time()  ?>"></script>
+    <script src="<?= base_url('assets/js/intro-result.js?v=') . time()  ?>"></script>
 </body>
 
 </html>
