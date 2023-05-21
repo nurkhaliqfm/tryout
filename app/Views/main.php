@@ -2,11 +2,13 @@
 
 <?= $this->section('content'); ?>
 <div class="wrapper simulasi-wrapper">
-    <div class="item-timer timer__countdown">
-        <div class="timer">
-            <span>00</span>
-            <span> : </span>
-            <span>00</span>
+    <div class="item-timer__box">
+        <div class="item-timer timer__countdown">
+            <div class="timer">
+                <span>00</span>
+                <span> : </span>
+                <span>00</span>
+            </div>
         </div>
     </div>
     <div class="content-simulasi">

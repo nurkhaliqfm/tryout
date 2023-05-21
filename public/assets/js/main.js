@@ -136,10 +136,12 @@ function DisplayQuestion(items, rows_per_page, page, csrfName, csrfHash) {
         itemOption.checked = false;
         itemOption.parentElement.style.backgroundColor = "#f1f4f8";
         itemOption.parentElement.style.color = "black";
+        itemOption.parentElement.style.fontWeight = "400";
         if (itemOption.value == UserQuizStorage[item.id_soal]) {
           itemOption.checked = true;
           itemOption.parentElement.style.backgroundColor = "#2780f2";
           itemOption.parentElement.style.color = "#fff";
+          itemOption.parentElement.style.fontWeight = "800";
         }
       });
   }
@@ -201,9 +203,11 @@ function ButtonPagination(tryout_quest) {
         .forEach((itemOption) => {
           itemOption.parentElement.style.backgroundColor = "#f1f4f8";
           itemOption.parentElement.style.color = "black";
+          itemOption.parentElement.style.fontWeight = "400";
         });
       itemOption.parentElement.style.backgroundColor = "#2780f2";
       itemOption.parentElement.style.color = "#fff";
+      itemOption.parentElement.style.fontWeight = "800";
     });
   });
 

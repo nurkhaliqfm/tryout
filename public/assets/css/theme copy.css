@@ -3,8 +3,9 @@
 :root {
   --main-color: #ffffff;
   --color-1: #edf0f5;
-  --color-3: #f1f4f8;
   --color-2: #000000;
+  --color-3: #f1f4f8;
+  --color-4: rgb(39, 128, 242);
   --color-warning: #ff4848;
   --color-active: #48ff7f;
   --font-1: #b3bfcb;
@@ -198,6 +199,10 @@ body {
   border-radius: 10px;
 }
 
+input.form-check-input:checked {
+  background-color: #4070f4;
+}
+
 /* INTRO */
 .wrapper.intro-wraper {
   overflow-x: hidden;
@@ -307,39 +312,49 @@ body {
 }
 
 /* SIMULASI */
+.simulasi-wrapper {
+  background-color: var(--color-4);
+}
 /* NAVBAR HEADER */
 .container-navbar {
-  position: fixed;
-  top: 0;
+  top: 10px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: var(--color-1);
-  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.12);
+  background-color: var(--color-4);
   z-index: 1000;
 }
 
 .item-navbar .title-navbar {
   font-size: 1.5rem;
   font-weight: 600;
-  color: var(--font-2);
+  color: var(--color-4);
 }
 
 .item-navbar .subtitle-navbar {
   font-size: 0.9rem;
   font-weight: 400;
-  color: var(--font-2);
+  color: var(--color-4);
 }
 
 .item-navbar {
   margin: auto 10px;
-  padding: 15px 10px;
+  border: 2px solid var(--color-4);
+  background-color: var(--main-color);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.item-timer__box {
+  padding-top: 20px;
 }
 
 .item-timer {
   display: none;
   padding: 5px 20px;
-  margin: 140px auto 30px auto;
+  /* margin: 140px auto 30px auto; */
+  margin: 0px auto;
   width: fit-content;
   background-color: var(--color-3);
   border-radius: 10px;
@@ -354,13 +369,16 @@ body {
 .simulasi-img {
   display: flex;
   flex-direction: row;
+  /* column-gap: 10px; */
   justify-content: center;
+  /* margin: 10px 20px; */
   margin: 0px 5px 10px 5px;
   width: fit-content;
 }
 
 .logo-simulasi {
   width: 50px;
+  height: 50px;
   border-radius: 100px;
   border: 4px solid var(--color-1);
   background-color: var(--color-1);
@@ -370,8 +388,8 @@ body {
 }
 
 .content-simulasi {
-  background-color: var(--main-color);
-  margin: 20px 10px;
+  background-color: var(--color-4);
+  margin: 10px;
   display: flex;
   flex-direction: column;
   row-gap: 20px;
@@ -382,6 +400,8 @@ body {
   background-color: var(--main-color);
   border-radius: 10px;
   padding: 20px;
+
+  /* padding-top: 80px; */
 }
 
 .container-no_soal {
@@ -582,6 +602,7 @@ body {
 
   .logo-simulasi {
     width: 50px;
+    height: 50px;
   }
 
   .simulasi-img {
@@ -618,6 +639,7 @@ body {
 @media (min-width: 540px) {
   .logo-simulasi {
     width: 60px;
+    height: 60px;
   }
 
   .simulasi-img {
