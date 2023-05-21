@@ -119,21 +119,30 @@ class Home extends BaseController
             $response = array();
             $daftrPeserta = $this->formRegistModel->where(['leader_email' => $data['email']])->first();
             if ($daftrPeserta) {
-                $resultData = $this->resultModel->where(['id_user' => $daftrPeserta['user_id']])->first();
-                if (!$resultData) {
-                    if ($data['password'] == $daftrPeserta['leader_phone']) {
-                        $response['status'] = "Success";
-                        session()->set([
-                            'user_id' => $daftrPeserta['user_id'],
-                            'email' => $daftrPeserta['leader_email'],
-                        ]);
-                    } else {
-                        $response['status'] = "Failed";
-                    };
+                if ($data['password'] == $daftrPeserta['leader_phone']) {
+                    $response['status'] = "Success";
+                    session()->set([
+                        'user_id' => $daftrPeserta['user_id'],
+                        'email' => $daftrPeserta['leader_email'],
+                    ]);
                 } else {
                     $response['status'] = "Failed";
-                    $response['limited'] = true;
-                }
+                };
+                // $resultData = $this->resultModel->where(['id_user' => $daftrPeserta['user_id']])->first();
+                // if (!$resultData) {
+                //     if ($data['password'] == $daftrPeserta['leader_phone']) {
+                //         $response['status'] = "Success";
+                //         session()->set([
+                //             'user_id' => $daftrPeserta['user_id'],
+                //             'email' => $daftrPeserta['leader_email'],
+                //         ]);
+                //     } else {
+                //         $response['status'] = "Failed";
+                //     };
+                // } else {
+                //     $response['status'] = "Failed";
+                //     $response['limited'] = true;
+                // }
             } else {
                 $response['status'] = "Failed";
             }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Preliminary Test Constrain 2023</title>
+    <title>School Exams | By codefm.my.id</title>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/fontawesome/css/all.min.css') ?>">
@@ -13,7 +13,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url('assets/css/theme.css?v=') . time() ?>">
     <!-- Fav Icon -->
-    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/logo.png?v=') . time() ?>">
+    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/favicon.svg?v=') . time() ?>">
 </head>
 
 <body>

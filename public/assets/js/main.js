@@ -134,8 +134,12 @@ function DisplayQuestion(items, rows_per_page, page, csrfName, csrfHash) {
           );
 
         itemOption.checked = false;
+        itemOption.parentElement.style.backgroundColor = "#f1f4f8";
+        itemOption.parentElement.style.color = "black";
         if (itemOption.value == UserQuizStorage[item.id_soal]) {
           itemOption.checked = true;
+          itemOption.parentElement.style.backgroundColor = "#2780f2";
+          itemOption.parentElement.style.color = "#fff";
         }
       });
   }
@@ -192,6 +196,14 @@ function ButtonPagination(tryout_quest) {
       );
       selectedQuestion.classList.remove("warning");
       selectedQuestion.classList.add("done");
+      document
+        .querySelectorAll("input.form-check-input")
+        .forEach((itemOption) => {
+          itemOption.parentElement.style.backgroundColor = "#f1f4f8";
+          itemOption.parentElement.style.color = "black";
+        });
+      itemOption.parentElement.style.backgroundColor = "#2780f2";
+      itemOption.parentElement.style.color = "#fff";
     });
   });
 

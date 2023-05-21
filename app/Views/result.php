@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Preliminary Test Constrain 2023</title>
+    <title>School Exams | By codefm.my.id</title>
 
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url('assets/css/theme.css?v=') . time() ?>">
     <!-- Fav Icon -->
-    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/logo.png?v=') . time() ?>">
+    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/favicon.svg?v=') . time() ?>">
 </head>
 
 <body>
@@ -18,7 +18,7 @@
     </div>
     <div class="wrapper intro-wraper">
         <div class="content-intro">
-            <div class="text-info" style="margin-bottom: 20px;">Thanks! I hope your prelimmiinary test results are good.</div>
+            <div class="text-info" style="margin-bottom: 20px;">Thanks! I hope your exam results are good.</div>
             <div class="result-container">
                 <span class="score"></span>
             </div>

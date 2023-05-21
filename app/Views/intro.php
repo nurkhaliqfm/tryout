@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Preliminary Test Constrain 2023</title>
+    <title>School Exams | By codefm.my.id</title>
 
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/fontawesome/css/all.min.css') ?>">
@@ -13,7 +13,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= base_url('assets/css/theme.css?v=') . time() ?>">
     <!-- Fav Icon -->
-    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/logo.png?v=') . time() ?>">
+    <link rel="icon" type="image/x-icon" href="<?= base_url('assets/img/favicon.svg?v=') . time() ?>">
 </head>
 
 <body>
@@ -30,20 +30,18 @@
             <div class="progress"></div>
         </div>
         <div class="content-intro">
-            <div class="text-info">Innovation for Sustainability of Manufacturing Industry to Accelerate National Economic Recovery</div>
+            <div class="text-info">Prepare Yourself Before Exams!!</div>
             <div class="img-container">
                 <img class="logo-intro" src="<?= base_url('assets/img/intro-logo.svg') ?>" alt="Logo" />
             </div>
             <div class="event-img">
-                <img class="logo-event" src="<?= base_url('assets/img/UNHAS.png') ?>" alt="Logo" />
-                <img class="logo-event" src="<?= base_url('assets/img/OKFT.png') ?>" alt="Logo" />
-                <img class="logo-event" src="<?= base_url('assets/img/HMTI.png') ?>" alt="Logo" />
-                <img class="logo-event" src="<?= base_url('assets/img/CONSTRAIN.png') ?>" alt="Logo" />
+                <img class="logo-event" src="<?= base_url('assets/img/LUTIM-2.svg') ?>" alt="Logo" />
+                <img class="logo-event" src="<?= base_url('assets/img/SMAN2LUTIM-2.svg') ?>" alt="Logo" />
             </div>
-            <div class="text-highlight-info">CONSTRAIN 2023 Preliminary Test!</div>
+            <div class="text-highlight-info">School Exams</div>
             <input type="hidden" id="txt_csrfname" name="<?= csrf_token() ?>" value="<?= csrf_hash() ?>" />
             <button class="intro-go-button" type="button" data-bs-toggle="modal" data-bs-target="#modelLoginPeserta">
-                <div class="button-text-intro">RESULT</div>
+                <div class="button-text-intro">START</div>
             </button>
         </div>
     </div>
@@ -52,7 +50,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header format-logo">
-                    <h5 class="modal-title">Preliminary Test Access Verification</h5>
+                    <h5 class="modal-title">School Exam Access Verification</h5>
                 </div>
                 <form>
                     <div class="modal-body">
@@ -98,7 +96,7 @@
         </div>
     </div>
 
-    <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modeResultPreliminaryTest" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="modelInfoPreliminaryTest" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header format-logo">
@@ -136,7 +134,7 @@
     <!-- Bootstrap 5 -->
     <script src="<?= base_url('assets/js/bootstrap.bundle.min.js') ?>"></script>
     <!-- My Script -->
-    <script src="<?= base_url('assets/js/intro-result.js?v=') . time()  ?>"></script>
+    <script src="<?= base_url('assets/js/intro.js?v=') . time()  ?>"></script>
 </body>
 
 </html>

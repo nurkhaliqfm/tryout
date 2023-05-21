@@ -11,7 +11,7 @@
     </div>
     <div class="content-simulasi">
         <div class="container-body">
-            <div class="container-no_soal">SOAL NOMOR <span id="question__number"></div>
+            <div class="container-no_soal">QUST NUMBER <span id="question__number"></div>
             <div id="question__part" class="container-soal"></div>
             <div class="container-option">
                 <div class="form-check" id="option_1" option-name='A'></div>
@@ -43,7 +43,7 @@
                 <h5 class="modal-title">Warning !!!</h5>
             </div>
             <div class="modal-body" style="font-weight: 400;">
-                Are you sure you want to finish the preliminary test.
+                Are you sure you want to finish the exam?.
             </div>
             <div class="modal-footer">
                 <div class="button__container">
@@ -67,28 +67,28 @@
         if (document.visibilityState == "hidden") {
             var baseUrl = window.location.origin;
             window.location.replace(baseUrl + "/simulation-result");
-            // var csrfName = document.getElementById("txt_csrfname").getAttribute("name");
-            // var csrfHash = document.getElementById("txt_csrfname").value;
+            var csrfName = document.getElementById("txt_csrfname").getAttribute("name");
+            var csrfHash = document.getElementById("txt_csrfname").value;
 
-            // const data = {};
-            // data["key"] = "save_result";
-            // data[csrfName] = csrfHash;
-            // data["result"] = '0';
+            const data = {};
+            data["key"] = "save_result";
+            data[csrfName] = csrfHash;
+            data["result"] = '0';
 
-            // var xhttp = new XMLHttpRequest();
-            // xhttp.open("POST", baseUrl + "/save-result", true);
-            // xhttp.onreadystatechange = () => {
-            //     if (xhttp.readyState == 4 && xhttp.status == 200) {
-            //         var response = JSON.parse(xhttp.responseText);
-            //         document.getElementById("txt_csrfname").value = response["value"];
-            //         document.getElementById("txt_csrfname").name = response["name"];
-            //         window.location.replace(baseUrl + "/simulation-result");
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", baseUrl + "/save-result", true);
+            xhttp.onreadystatechange = () => {
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    var response = JSON.parse(xhttp.responseText);
+                    document.getElementById("txt_csrfname").value = response["value"];
+                    document.getElementById("txt_csrfname").name = response["name"];
+                    window.location.replace(baseUrl + "/simulation-result");
 
-            //     }
-            // };
-            // xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-            // xhttp.setRequestHeader("Content-Type", "application/json");
-            // xhttp.send(JSON.stringify(data));
+                }
+            };
+            xhttp.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(data));
         };
     })
 </script>

@@ -38,7 +38,7 @@ const calculateResult = (tryout_quest, getSimulationResult) => {
 
   document.querySelector(".loader-container").style.display = "none";
   XhttpResultData(getSimulationResult["result"]);
-  // document.querySelector(".score").innerHTML = getSimulationResult["result"];
+  document.querySelector(".score").innerHTML = getSimulationResult["result"];
 };
 
 const XhttpResultData = (result_score) => {
